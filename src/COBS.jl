@@ -1,6 +1,6 @@
 module COBS
 
-export encode
+export encode, decode
 
 function _doblock(xs)
     n = length(xs)
@@ -40,7 +40,7 @@ end
 """
     encode(payload)
 
-Return theeEncoded `payload`.
+Return the encoded `payload`.
 """
 function encode(payload)
     blocks = Vector{Vector{UInt8}}()
@@ -50,5 +50,31 @@ function encode(payload)
     end
     vcat(blocks..., 0x00)
 end
+
+function _f!(y, msg, i1, i2)
+    for i in i1 + 1:i2 - 1
+        y[i - 1] = msg[i]
+    end
+    return i2, i2 + msg[i2]
+end
+
+"""
+    decode(payload)
+
+Return the decoded `payload`.
+"""
+function decode(msg)
+    y = Vector{UInt8}(undef, length(msg) - 2)
+    i1 = 0x01
+    i2 = i1 + msg[i1]
+    i1, i2 = _f!(y, msg, i1, i2)
+    while i1 < i2
+        y[i1 - 1] = 0
+        i1, i2 = _f!(y, msg, i1, i2)
+    end
+    return y
+end
+
+
 
 end # module
