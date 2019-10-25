@@ -58,12 +58,7 @@ function _f!(y, msg, i1, i2)
     return i2, i2 + msg[i2]
 end
 
-"""
-    decode(payload)
-
-Return the decoded `payload`.
-"""
-function decode(msg)
+#=function decode(msg)
     y = Vector{UInt8}(undef, length(msg) - 2)
     i1 = 0x01
     i2 = i1 + msg[i1]
@@ -73,8 +68,57 @@ function decode(msg)
         i1, i2 = _f!(y, msg, i1, i2)
     end
     return y
+end=#
+
+"""
+    decode(msg)
+
+Return the decoded `msg`.
+"""
+function decode(_msg::AbstractVector)
+    msg = copy(_msg)
+    pl = UInt8[]
+    n = popfirst!(msg)
+    c = 0
+    b = popfirst!(msg)
+    while b ≠ 0
+        c += 1
+        if c < n
+            push!(pl, b)
+        else
+            push!(pl, 0)
+            n = b
+            c = 0
+        end
+        b = popfirst!(msg)
+    end
+    return pl
 end
 
+
+"""
+    decode(sp)
+
+Decode a message directly from a specified serial port, `sp`. 
+"""
+function decode(sp)
+    pl = UInt8[]
+    n = read(sp, UInt8)
+    c = 0
+    b = read(sp, UInt8)
+    while b ≠ 0
+        c += 1
+        if c < n
+            push!(pl, b)
+        else
+            push!(pl, 0)
+            n = b
+            c = 0
+        end
+        b = read(sp, UInt8)
+    end
+    return pl
+end
 
 
 end # module
