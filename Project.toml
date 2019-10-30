@@ -1,7 +1,7 @@
 name = "COBS"
 uuid = "51d40088-776c-571e-837e-515b83a6b6e6"
 authors = ["yakir12 <12.yakir@gmail.com>"]
-version = "0.1.1"
+version = "0.0.1"
 
 [deps]
 
