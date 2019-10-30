@@ -51,12 +51,12 @@ function encode(payload)
     vcat(blocks..., 0x00)
 end
 
-function _f!(y, msg, i1, i2)
+#=function _f!(y, msg, i1, i2)
     for i in i1 + 1:i2 - 1
         y[i - 1] = msg[i]
     end
     return i2, i2 + msg[i2]
-end
+end=#
 
 #=function decode(msg)
     y = Vector{UInt8}(undef, length(msg) - 2)
