@@ -10,4 +10,4 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/man4n93be6545isi/branch/master?svg=true)](https://ci.appveyor.com/project/yakir12/cobs-jl/branch/master)
 [![codecov.io](http://codecov.io/github/yakir12/COBS.jl/coverage.svg?branch=master)](http://codecov.io/github/yakir12/COBS.jl?branch=master)
 
-Consistent Overhead Byte Stuffing, [COBS](https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing), is an algorithm for encoding data bytes typically used when transferring data via serial ports (e.g. to an Arduino).
+Consistent Overhead Byte Stuffing, [COBS](https://en.wikipedia.org/wiki/Consistent_Overhead_Byte_Stuffing), is an algorithm for encoding data bytes typically used when transferring data via serial ports (e.g. to an Arduino). This is a Julia implementation that works.
